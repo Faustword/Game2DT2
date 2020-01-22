@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigidbody;
     public LayerMask groundLayer;
     public Animator animator;
+    public float runningSpeed = 1.5f;
 
 
     void Awake()
@@ -30,6 +31,16 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetBool("isGrounded", IsTouchingTheGround());
+    }
+
+    void FixedUpdate()
+    {
+       
+            if (rigidbody.velocity.x < runningSpeed)
+        {
+            rigidbody.velocity = new Vector2(runningSpeed, rigidbody.velocity.y);
+        }
+       
     }
 
     void Jump()
