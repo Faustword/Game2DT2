@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce = 5f;
     private Rigidbody2D rigidbody;
+    public LayerMask groundLayer;
+    public Animator animator;
 
 
     void Awake()
@@ -15,7 +17,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator.SetBool("isAlive", true);
+        animator.SetBool("isGrounded", true);
     }
 
     // Update is called once per frame
@@ -25,11 +28,27 @@ public class PlayerController : MonoBehaviour
         {
             Jump();
         }
+
+        animator.SetBool("isGrounded", IsTouchingTheGround());
     }
 
     void Jump()
     {
+        if (IsTouchingTheGround()){ 
         rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
+    }
+
+    bool IsTouchingTheGround()
+    {
+        if(Physics2D.Raycast(this.transform.position, Vector2.down, 0.2f, groundLayer))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 

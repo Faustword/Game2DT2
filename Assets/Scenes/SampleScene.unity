@@ -222,6 +222,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  animator: {fileID: 2079551374}
 --- !u!1001 &1595736653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -363,3 +367,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de6dd4308955a924a97ab87e59bc56f5, type: 3}
+--- !u!95 &2079551374 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95777273267052734, guid: ecb1ee84397a74f4795ba835081fc272,
+    type: 3}
+  m_PrefabInstance: {fileID: 1595736653}
+  m_PrefabAsset: {fileID: 0}
