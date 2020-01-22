@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController sharedInstance;
+
     public float jumpForce = 5f;
     private Rigidbody2D rigidbody;
     public LayerMask groundLayer;
     public Animator animator;
     public float runningSpeed = 1.5f;
+    private Vector3 starPosition;
 
 
     void Awake()
     {
+        sharedInstance = this;
         rigidbody = GetComponent<Rigidbody2D>();
+        starPosition = this.transform.position;
     }
     // Start is called before the first frame update
-    void Start()
+    public void StartGame()
     {
         animator.SetBool("isAlive", true);
         animator.SetBool("isGrounded", true);
+        this.transform.position = starPosition;
     }
 
     // Update is called once per frame
@@ -63,6 +69,12 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void Kill()
+    {
+        GameManager.sharedInstance.GameOver();
+        this.animator.SetBool("isAlive", false);
     }
 }
 
