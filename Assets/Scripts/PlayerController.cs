@@ -25,22 +25,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.sharedInstance.currentGameState == GameState.inGame) { 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
 
         animator.SetBool("isGrounded", IsTouchingTheGround());
+        }
     }
 
     void FixedUpdate()
     {
-       
+       if(GameManager.sharedInstance.currentGameState == GameState.inGame) { 
             if (rigidbody.velocity.x < runningSpeed)
         {
             rigidbody.velocity = new Vector2(runningSpeed, rigidbody.velocity.y);
         }
-       
+        }
+
     }
 
     void Jump()
