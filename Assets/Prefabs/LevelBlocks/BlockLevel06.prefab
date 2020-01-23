@@ -195,6 +195,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3176203780059563332}
   - component: {fileID: 1929120825869217716}
+  - component: {fileID: 7506477223027904737}
   m_Layer: 8
   m_Name: ExitZone
   m_TagString: Untagged
@@ -242,6 +243,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 17.733484}
   m_EdgeRadius: 0
+--- !u!114 &7506477223027904737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110298682146180415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ed91d3abb09ab48a52a4f62f9b3f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4275774969645074633
 PrefabInstance:
   m_ObjectHideFlags: 0

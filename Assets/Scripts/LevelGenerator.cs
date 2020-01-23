@@ -13,9 +13,7 @@ public class LevelGenerator : MonoBehaviour
 
     void Start()
     {
-        AddLevelBlock();
-        AddLevelBlock();
-        AddLevelBlock();
+        GenerateInitialBlocks();
     }
 
     void Awake()
@@ -49,16 +47,24 @@ public class LevelGenerator : MonoBehaviour
 
     public void RemoveOldestLevelBlock()
     {
-
+        LevelBlock oldestBlock = currentBlocks[0];
+        currentBlocks.Remove(oldestBlock);
+        Destroy(oldestBlock.gameObject);
     }
 
     public void RemoveAllTheBlocks()
     {
-
+        while (currentBlocks.Count > 0)
+        {
+            RemoveOldestLevelBlock();
+        }
     }
 
     public void GenerateInitialBlocks()
     {
-
+        for(int i = 0; i < 2; i++)
+        {
+            AddLevelBlock();
+        }
     }
 }
