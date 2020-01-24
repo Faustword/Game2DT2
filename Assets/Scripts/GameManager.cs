@@ -41,15 +41,24 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SetGameState(GameState.inGame);
-        PlayerController.sharedInstance.StartGame();
 
+        GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");
+        CameraFollow cameraFollow = camera.GetComponent<CameraFollow>();
+        cameraFollow.ResetCameraPosition();
+        
+
+        if(PlayerController.sharedInstance.transform.position.x > 10) {
         LevelGenerator.sharedInstance.RemoveAllTheBlocks();
         LevelGenerator.sharedInstance.GenerateInitialBlocks();
+        }
+
+        PlayerController.sharedInstance.StartGame();
     }
 
     public void GameOver()
     {
         SetGameState(GameState.gameOver);
+
     }
 
     public void BackToMenu()

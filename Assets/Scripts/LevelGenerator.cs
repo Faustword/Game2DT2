@@ -6,6 +6,8 @@ public class LevelGenerator : MonoBehaviour
 {
     public static LevelGenerator sharedInstance;
 
+    public LevelBlock firstBlock;
+
     public List<LevelBlock> allTheLevelBlocks = new List<LevelBlock>();
     public Transform levelStartPoint;
     public List<LevelBlock> currentBlocks = new List<LevelBlock>();
@@ -24,17 +26,20 @@ public class LevelGenerator : MonoBehaviour
     public void AddLevelBlock()
     {
         int randomIndex = Random.Range(0, allTheLevelBlocks.Count);
-        LevelBlock currentBlock = (LevelBlock)Instantiate(allTheLevelBlocks[randomIndex]);
-        currentBlock.transform.SetParent(this.transform, false);
+        LevelBlock currentBlock;
 
         Vector3 spawnPosition = Vector3.zero;
         
         if(currentBlocks.Count == 0)
         {
+            currentBlock = (LevelBlock)Instantiate(firstBlock);
+            currentBlock.transform.SetParent(this.transform, false);
             spawnPosition = levelStartPoint.position;
         }
         else
         {
+            currentBlock = (LevelBlock)Instantiate(allTheLevelBlocks[randomIndex]);
+            currentBlock.transform.SetParent(this.transform, false);
             spawnPosition = currentBlocks[currentBlocks.Count - 1].exitPoint.position;
         }
 

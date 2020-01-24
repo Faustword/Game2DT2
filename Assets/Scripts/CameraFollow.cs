@@ -16,12 +16,21 @@ public class CameraFollow : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
-   
-    void Update()
+    public void ResetCameraPosition()
     {
         Vector3 temp = target.position;
         targetPosition = temp.x += offset.x;
         Vector3 destination = new Vector3(targetPosition, offset.y, offset.z);
+        this.transform.position = destination;
+    }
+   
+    void Update()
+    {
+        if(PlayerController.sharedInstance.animator.GetBool("isAlive")) { 
+        Vector3 temp = target.position;
+        targetPosition = temp.x += offset.x;
+        Vector3 destination = new Vector3(targetPosition, offset.y, offset.z);
         this.transform.position = Vector3.SmoothDamp(this.transform.position, destination, ref velocity, dampTime);
+        }
     }
 }

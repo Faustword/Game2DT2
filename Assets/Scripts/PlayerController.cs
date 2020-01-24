@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isAlive", true);
         animator.SetBool("isGrounded", true);
         this.transform.position = starPosition;
+        Debug.Log("Empieza en " + starPosition);
     }
 
     // Update is called once per frame
