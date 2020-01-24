@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     {
         SetGameState(GameState.inGame);
         PlayerController.sharedInstance.StartGame();
+
+        LevelGenerator.sharedInstance.RemoveAllTheBlocks();
+        LevelGenerator.sharedInstance.GenerateInitialBlocks();
     }
 
     public void GameOver()
