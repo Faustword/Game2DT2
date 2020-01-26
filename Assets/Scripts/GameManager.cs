@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager sharedInstance;
     public GameState currentGameState = GameState.menu;
+    public Canvas menuCanvas, gameCanvas, gameOverCanvas;
     
     void Awake()
     {
@@ -72,12 +73,22 @@ public class GameManager : MonoBehaviour
 
         if(newGameState == GameState.menu)
         {
+            menuCanvas.enabled = true;
+            gameCanvas.enabled = false;
+            gameOverCanvas.enabled = false;
 
         }else if(newGameState == GameState.inGame)
         {
+            menuCanvas.enabled = false;
+            gameCanvas.enabled = true;
+            gameOverCanvas.enabled = false;
 
-        }else if(newGameState == GameState.gameOver)
+        }
+        else if(newGameState == GameState.gameOver)
         {
+            menuCanvas.enabled = false;
+            gameCanvas.enabled = false;
+            gameOverCanvas.enabled = true;
 
         }
         
