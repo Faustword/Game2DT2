@@ -36,7 +36,10 @@ public class GameManager : MonoBehaviour
              }
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitGame();
+        }
     }
 
     public void StartGame()
@@ -65,6 +68,11 @@ public class GameManager : MonoBehaviour
     public void BackToMenu()
     {
         SetGameState(GameState.menu);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 
     void SetGameState(GameState newGameState)
