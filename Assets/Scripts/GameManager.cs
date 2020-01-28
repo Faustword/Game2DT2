@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager sharedInstance;
     public GameState currentGameState = GameState.menu;
     public Canvas menuCanvas, gameCanvas, gameOverCanvas;
+    public int collectedObjects = 0;
     
     void Awake()
     {
@@ -57,11 +58,14 @@ public class GameManager : MonoBehaviour
         }
 
         PlayerController.sharedInstance.StartGame();
+
+        collectedObjects = 0;
     }
 
     public void GameOver()
     {
         SetGameState(GameState.gameOver);
+        
 
     }
 
@@ -99,7 +103,12 @@ public class GameManager : MonoBehaviour
             gameOverCanvas.enabled = true;
 
         }
-        
-       
+
+    }
+
+    public void CollectObject(int objectValue)
+    {
+        this.collectedObjects += objectValue;
+        Debug.Log("Llevamos recogidos "+this.collectedObjects);
     }
 }
