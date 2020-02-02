@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CollectableType
+{
+    healthPotion,
+    manaPotion,
+    money
+}
+
 public class Collectable : MonoBehaviour
 {
+    public CollectableType type = CollectableType.money;
+
     bool isCollected = false;
     public int value = 0;
 
@@ -25,7 +34,19 @@ public class Collectable : MonoBehaviour
     {
         isCollected = true;
         Hide();
-        GameManager.sharedInstance.CollectObject(value);
+        switch (this.type)
+        {
+            case CollectableType.money:
+                GameManager.sharedInstance.CollectObject(value);
+                break;
+            case CollectableType.healthPotion:
+                PlayerController.sharedInstance.CollectHealth(value);
+                break;
+            case CollectableType.manaPotion:
+                PlayerController.sharedInstance.CollectMana(value);
+                break;
+
+        }
     }
 
     void OnTriggerEnter2D(Collider2D otherCollider)

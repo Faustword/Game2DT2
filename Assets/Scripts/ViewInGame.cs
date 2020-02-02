@@ -12,10 +12,20 @@ public class ViewInGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.sharedInstance.currentGameState == GameState.inGame)
+        if(GameManager.sharedInstance.currentGameState == GameState.inGame ||
+            GameManager.sharedInstance.currentGameState == GameState.gameOver)
         {
             int currentObjects = GameManager.sharedInstance.collectedObjects;
             this.collectableLabel.text = currentObjects.ToString();
+        }
+
+        if(GameManager.sharedInstance.currentGameState == GameState.inGame)
+        {
+            float travelledDistance = PlayerController.sharedInstance.GetDistance();
+            this.scoreLable.text = "Score\n"+travelledDistance.ToString("f2");
+
+            float maxscore = PlayerPrefs.GetFloat("maxscore",0);
+            this.maxscoreLable.text = "Max Score\n" + maxscore.ToString("f2");
         }
     }
 }
