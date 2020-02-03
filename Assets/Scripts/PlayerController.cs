@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPosition;
     private int healthPoints, manaPoints;
 
+    public const int INITIAL_HEALTH = 100, INITIAL_MANA = 15, MAX_HEALTH = 150, MAX_MANA = 25;
+    public const int MIN_TIRED_HEALTH = 10;
+    public const float MIN_SPEED = 2.5f, HEALTH_TIME_DECREASE = 2f;
+    public const float SUPERJUMP_FORCE = 1.5f;
+    public const int SUPERJUMP_COST = 3;
 
     void Awake()
     {
@@ -29,8 +34,20 @@ public class PlayerController : MonoBehaviour
         this.transform.position = startPosition;
         Debug.Log("Empieza en " + startPosition);
 
-        this.healthPoints = 100;
-        this.manaPoints = 10;
+        this.healthPoints = INITIAL_HEALTH;
+        this.manaPoints = INITIAL_MANA;
+
+        StartCoroutine("TirePlayer");
+    }
+
+    IEnumerator TirePlayer()
+    {
+        while (this.healthPoints > MIN_TIRED_HEALTH)
+        {
+            this.healthPoints--;
+            yield return new WaitForSeconds(HEALTH_TIME_DECREASE);
+        }
+        yield return null;
     }
 
     // Update is called once per frame
@@ -44,11 +61,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-               // if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    Jump(true);
-                }
-
+            Jump(true);
         }
 
         animator.SetBool("isGrounded", IsTouchingTheGround());
@@ -58,7 +71,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
        if(GameManager.sharedInstance.currentGameState == GameState.inGame) {
-            float currentSpeed = (runningSpeed - 0.5f) * this.healthPoints / 100.0f;
+            float currentSpeed = (runningSpeed - MIN_SPEED) * this.healthPoints / 100.0f;
 
             if (rigidbody.velocity.x < currentSpeed)
         {
@@ -74,7 +87,8 @@ public class PlayerController : MonoBehaviour
         { 
             if(isSuperJump && this.manaPoints > 5)
             {
-                rigidbody.AddForce(Vector2.up * jumpForce*1.5f, ForceMode2D.Impulse);
+                manaPoints -= SUPERJUMP_COST;
+                rigidbody.AddForce(Vector2.up * jumpForce*SUPERJUMP_FORCE, ForceMode2D.Impulse);
             } else
             {
                 rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -104,6 +118,8 @@ public class PlayerController : MonoBehaviour
         {
             PlayerPrefs.SetFloat("maxscore", this.GetDistance());
         }
+
+        StopCoroutine("TirePlayer");
     }
 
     public float GetDistance()
@@ -118,9 +134,9 @@ public class PlayerController : MonoBehaviour
     {
         this.healthPoints += points;
 
-        if(this.healthPoints >= 150)
+        if(this.healthPoints >= MAX_HEALTH)
         {
-            this.healthPoints = 150;
+            this.healthPoints = MAX_HEALTH;
         }
     }
 
@@ -128,10 +144,20 @@ public class PlayerController : MonoBehaviour
     {
         this.manaPoints += points;
 
-        if(this.manaPoints >= 25)
+        if(this.manaPoints >= MAX_MANA)
         {
-            this.manaPoints = 25;
+            this.manaPoints = MAX_MANA;
         }
+    }
+
+    public int GetHealth()
+    {
+        return this.healthPoints;
+    }
+
+    public int GetMana()
+    {
+        return this.manaPoints;
     }
 }
 
