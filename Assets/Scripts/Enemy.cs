@@ -7,11 +7,19 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rigidbody;
     public float runningSpeed = 1.5f;
     public static bool turnAround;
+    private Vector3 startPosition;
+
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        this.transform.position = startPosition;
 
+    }
+
+    void Start()
+    {
+        startPosition = this.transform.position;
     }
 
     void FixedUpdate()

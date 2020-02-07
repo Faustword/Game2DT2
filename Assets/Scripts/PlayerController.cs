@@ -159,6 +159,20 @@ public class PlayerController : MonoBehaviour
     {
         return this.manaPoints;
     }
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        if(otherCollider.tag == "Enemy")
+        {
+            this.healthPoints -= 20;
+        }
+
+        if(GameManager.sharedInstance.currentGameState == GameState.inGame && this.healthPoints <= 0)
+        {
+            Kill();
+        }
+    }
+
 }
 
 
