@@ -16,6 +16,8 @@ public class Collectable : MonoBehaviour
     bool isCollected = false;
     public int value = 0;
 
+    public AudioClip collectSound;
+
   void Show()
     {
         this.GetComponent<SpriteRenderer>().enabled = true;
@@ -34,6 +36,12 @@ public class Collectable : MonoBehaviour
     {
         isCollected = true;
         Hide();
+
+        AudioSource audio = GetComponent<AudioSource>();
+        
+        if(audio != null & this.collectSound != null) { 
+            audio.PlayOneShot(this.collectSound);
+        }
         switch (this.type)
         {
             case CollectableType.money:
