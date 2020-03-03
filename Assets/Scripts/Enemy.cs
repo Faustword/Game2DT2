@@ -30,16 +30,23 @@ public class Enemy : MonoBehaviour
         {
             currentRunningSpeed = runningSpeed;
             transform.eulerAngles = new Vector3(0, 180.0f, 0);
+            Debug.Log("turnAround es true");
         }
         else
         {
             currentRunningSpeed = -runningSpeed;
             transform.eulerAngles = new Vector3(0, 0, 0);
+            Debug.Log("turnAround es false");
         }
 
         if (GameManager.sharedInstance.currentGameState == GameState.inGame)
         {
-            rigidbody.velocity = new Vector2(currentRunningSpeed, rigidbody.velocity.y); 
+            rigidbody.velocity = new Vector2(currentRunningSpeed, rigidbody.velocity.y);
+        }
+        else
+        {
+            rigidbody.velocity = new Vector2( 0 , rigidbody.velocity.y);
+
         }
     }
 

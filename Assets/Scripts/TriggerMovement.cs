@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class TriggerMovement : MonoBehaviour
 {
-    public bool movingForward;
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(movingForward == true)
-        {
+        if(collision.CompareTag("EnemyWall") == true) { 
+             if(Enemy.turnAround == false)
+             {
             Enemy.turnAround = true;
+             }
+            else
+             {
+               
+                Enemy.turnAround = false;
+
+             }
         }
-        else
-        {
-            Enemy.turnAround = false;
-        }
+
+        
     }
 }
